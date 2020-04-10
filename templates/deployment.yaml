@@ -59,6 +59,7 @@ spec:
       - name: data
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "bitwarden.fullname" . }}{{- end }}
           claimName: {{ template "bitwarden-k8s.fullname" . }}
       {{- else }}
         emptyDir: {}
